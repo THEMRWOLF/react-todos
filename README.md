@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+# Descripción
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicación realizada con la intención de aprender las nociones básicas de [React](https://reactjs.org/) y [Tailwind](https://tailwindcss.com/), su función es agregar tareas a un lista, poder marcar las completadas, asi como eliminar todas aquellas que se hayan marcado.
 
-## Available Scripts
+Para realizar el proyecto se uso el «[useState](https://reactjs.org/docs/hooks-reference.html#usestate)», «[useEffect](https://reactjs.org/docs/hooks-reference.html#useeffect)», «[useRef](https://reactjs.org/docs/hooks-reference.html#useref)» de React, también se uso «[v4](https://www.npmjs.com/package/uuid)» de uuid.
 
-In the project directory, you can run:
+## useState
 
-### `npm start`
+```javascript
+// Retorna el valor (state) y la función para actualizarlo (setState)
+const [state, setState] = useState(initialState)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+// Para trabajar con los valores hay que crear una copia de estos
+const newState = [...state]
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+// Una vez cambiado los valores, los actualizamos con su función
+setState(newState)
+```
 
-### `npm test`
+## useEffect
+```javascript
+// La función pasada se ejecutará después de que el renderizado es confirmado
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+// Obtenemos los valores guardados en localStorage
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem(KEY))
+    if (stored) setState(stored)
+  }, [])
 
-### `npm run build`
+// Modificamos los valores de localStorage
+  useEffect(() => {
+    localStorage.setItem(KEY, JSON.stringify(state))
+  }, [state])
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## useRef
+```javascript
+// El objeto devuelto se mantendrá persistente durante la vida completa del componente.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+const refContainer = useRef(initialValue)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+const value = refContainer.current.value
+```
 
-### `npm run eject`
+## v4
+```javascript
+// Genera ids únicos
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+// Se importa
+import { v4 as uuidv4 } from 'uuid'
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+// Se usa
+uuidv4() // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
+```

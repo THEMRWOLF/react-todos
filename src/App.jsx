@@ -25,7 +25,6 @@ export function App() {
     setTodos(newTodos)
   }
 
-
   const handleTodoItemAdd = event => {
     if (event.key !== 'Enter') return
     const task = todoTaskRef.current.value
